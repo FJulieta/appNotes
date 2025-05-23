@@ -36,6 +36,7 @@ export class NotesService {
       title,
       content,
       tags: tagEntities,
+      color: noteData.color,
     });
 
     return this.noteRepository.save(note);

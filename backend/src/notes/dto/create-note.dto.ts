@@ -12,4 +12,8 @@ export class CreateNoteDto {
   @IsOptional()
   @IsArray()
   tags?: string[];
+
+  @IsOptional()
+  @IsString()
+  color?: string;
 }

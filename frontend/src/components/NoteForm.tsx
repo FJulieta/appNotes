@@ -1,36 +1,53 @@
 'use client';
 import { useEffect, useState } from 'react';
 import styles from '../styles/NoteForm.module.scss';
+import { getRandomColor } from '../utils/colors'; // 🟣 IMPORTANTE
 
 type NoteInput = {
   title: string;
   content: string;
   tags: string[];
+  color?: string; // 💡 ahora incluye color
 };
 
 type Props = {
   onSubmit: (note: NoteInput) => void;
   editingNote?: NoteInput | null;
 };
+
 export default function NoteForm({ onSubmit, editingNote }: Props) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [tags, setTags] = useState<string[]>([]); // Si no usás tags acá, podés dejarlo vacío
 
   useEffect(() => {
     if (editingNote) {
       setTitle(editingNote.title);
       setContent(editingNote.content);
+      setTags(editingNote.tags || []);
     } else {
       setTitle('');
       setContent('');
+      setTags([]);
     }
   }, [editingNote]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ title, content });
+
+    const newNote: NoteInput = {
+      title,
+      content,
+      tags,
+      color: editingNote?.color ?? getRandomColor(), // 🟣 ASIGNA SOLO SI NO ESTÁS EDITANDO
+    };
+
+    console.log('Nota a crear:', newNote); // 💥 Revisá que el color aparezca ahora
+
+    onSubmit(newNote);
     setTitle('');
     setContent('');
+    setTags([]);
   };
 
   return (

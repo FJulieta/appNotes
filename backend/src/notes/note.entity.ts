@@ -20,6 +20,10 @@ export class Note {
 
   @Column({ default: false })
   archived: boolean;
+  
+  @Column({ nullable: true })
+color?: string;
+
 
   // Relación Many-to-Many con Tags
   @ManyToMany(() => Tag, (tag) => tag.notes, { cascade: true })

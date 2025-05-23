@@ -9,6 +9,7 @@ export type Note = {
   content: string;
   archived: boolean;
   tags: Tag[];
+  color?: string;
 };
 
 // Este es el tipo que se usa al crear o editar una nota desde el formulario
@@ -16,4 +17,5 @@ export type NoteInput = {
   title: string;
   content: string;
   tags: string[];
+  color?: string;
 };

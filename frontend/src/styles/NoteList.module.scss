@@ -2,7 +2,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
   justify-content: center;
   max-width: 1000px;
@@ -11,30 +11,77 @@
 }
 
 .card {
-  background: $green-50;
+  position: relative;
   border-radius: $radius;
-  box-shadow: $shadow;
   padding: 1.5rem;
-  transition: transform 0.2s ease;
-  font-family: $font-family;
-  border: 1px solid $green-200;
+  width: 250px;
+  height: 250px;
+  cursor: pointer;
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.1); // base vidrio
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+
+  // capa para color aleatorio con transparencia
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--note-color);
+    opacity: 0.4; // 🌈 visibilidad del color
+    border-radius: inherit;
+    z-index: -1;
+  }
 
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  // PUNTITA MÁS DOBLADA Y CON SOMBRA
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    box-shadow: -4px -4px 6px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+  }
+
+  // NOTA EXPANDIDA
+  &.expanded {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+    transform: translate(-50%, -50%) scale(1.4);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
+    width: 340px;
+    height: auto;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(18px);
   }
 
   h3 {
-    color: $green-900;
+    color: #070e18;
     margin-bottom: 0.5rem;
   }
 
   p {
-    color: $green-800;
+    color: $gray;
     font-size: 0.95rem;
     margin-bottom: 1rem;
   }
 }
-
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -43,8 +90,8 @@
 }
 
 .tag {
-  background-color: $green-200;
-  color: $green-900;
+  background-color: $light-gray;
+  color: $gray;
   font-size: 0.75rem;
   padding: 0.3rem 0.8rem;
   border-radius: 999px;
@@ -53,29 +100,40 @@
 .actions {
   display: flex;
   justify-content: flex-end;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  gap: 1rem;
 
   button {
-    background-color: $green-700;
+    background-color: $bordeaux;
     color: $white;
     border: none;
-    padding: 0.4rem 0.9rem;
+    padding: 0.4rem 0.8rem;
     border-radius: $radius;
     cursor: pointer;
-    font-size: 0.85rem;
-    transition: background-color 0.2s ease;
+    font-size: 0.9rem;
 
     &:hover {
-      background-color: $green-900;
+      background-color: darken($bordeaux, 10%);
     }
 
     &.archive {
-      background-color: $green-500;
+      background-color: $gray;
 
       &:hover {
-        background-color: $green-700;
+        background-color: darken($gray, 10%);
       }
     }
   }
+  .card.expanded {
+  z-index: 200;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 30px rgba(69, 61, 61, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+.card.dimmed {
+  opacity: 0.3;
+  filter: blur(2px);
+  pointer-events: none;
+  transform: scale(0.95);
+}
 }
