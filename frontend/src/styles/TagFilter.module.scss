@@ -1,0 +1,30 @@
+@use './variables' as *;
+
+.tagChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.chip {
+  background-color: $bordeaux;
+  color: $white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($bordeaux, 10%);
+  }
+
+  &.active {
+    background-color: lighten($bordeaux, 5%);
+    font-weight: bold;
+    box-shadow: 0 0 0 2px $light-gray;
+  }
+}

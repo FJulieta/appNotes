@@ -1,5 +1,7 @@
 const API_URL = 'http://localhost:3000/notes';
 
+import { Note } from '../types/note';
+
 export const getActiveNotes = async () => {
   const res = await fetch(`${API_URL}/active`);
   return res.json();
@@ -27,4 +29,18 @@ export const updateNote = async (
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(note),
   });
+ 
 };
+export async function getArchivedNotes(): Promise<Note[]> {
+  const res = await fetch('http://localhost:3000/notes/archived'); // Usa variable de entorno en producción
+  if (!res.ok) throw new Error('Failed to fetch archived notes');
+  return res.json();
+}
+export async function toggleArchiveNote(id: number): Promise<void> {
+  const res = await fetch(`http://localhost:3000/notes/${id}/archive`, {
+    method: 'PATCH',
+  });
+
+  if (!res.ok) throw new Error('Failed to toggle archive status');
+}
+

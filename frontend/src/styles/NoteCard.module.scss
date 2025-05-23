@@ -1,0 +1,8 @@
+@import './variables.scss';
+
+.card {
+  background: $beige;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  padding: 1.5rem;
+}

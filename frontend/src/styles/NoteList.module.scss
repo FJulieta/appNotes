@@ -1,0 +1,81 @@
+@use './variables' as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.card {
+  background: $green-50;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  padding: 1.5rem;
+  transition: transform 0.2s ease;
+  font-family: $font-family;
+  border: 1px solid $green-200;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  h3 {
+    color: $green-900;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: $green-800;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  background-color: $green-200;
+  color: $green-900;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+
+  button {
+    background-color: $green-700;
+    color: $white;
+    border: none;
+    padding: 0.4rem 0.9rem;
+    border-radius: $radius;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: $green-900;
+    }
+
+    &.archive {
+      background-color: $green-500;
+
+      &:hover {
+        background-color: $green-700;
+      }
+    }
+  }
+}

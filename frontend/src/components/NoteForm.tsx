@@ -2,11 +2,16 @@
 import { useEffect, useState } from 'react';
 import styles from '../styles/NoteForm.module.scss';
 
-type Props = {
-  onSubmit: (note: { title: string; content: string }) => void;
-  editingNote?: { title: string; content: string } | null;
+type NoteInput = {
+  title: string;
+  content: string;
+  tags: string[];
 };
 
+type Props = {
+  onSubmit: (note: NoteInput) => void;
+  editingNote?: NoteInput | null;
+};
 export default function NoteForm({ onSubmit, editingNote }: Props) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -31,6 +36,7 @@ export default function NoteForm({ onSubmit, editingNote }: Props) {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <input
+        className={styles.input}
         type="text"
         placeholder="Title"
         value={title}
@@ -38,12 +44,13 @@ export default function NoteForm({ onSubmit, editingNote }: Props) {
         required
       />
       <textarea
+        className={styles.textarea}
         placeholder="Write your note..."
         value={content}
         onChange={(e) => setContent(e.target.value)}
         required
       />
-      <button type="submit">
+      <button type="submit" className={styles.button}>
         {editingNote ? 'Update Note' : 'Save Note'}
       </button>
     </form>
